@@ -57,7 +57,7 @@ export class ElTrafico {
     const limitAction = `${startMsg} ${getLimit(program.downloadLimit)} ${
       getLimit(program.uploadLimit)
     } ${getLimit(program.downloadMinimum)} ${getLimit(program.uploadMinimum)}`;
-    
+
     await this.#write(limitAction);
   }
   async stop() {

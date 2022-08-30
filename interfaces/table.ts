@@ -12,4 +12,4 @@ export interface AppProps {
   uploadRate?: number;
 }
 
-export type Unit  = "bps" | "Kbps" | "Mbps"
+export type Unit = "bps" | "kbps" | "mbps";
