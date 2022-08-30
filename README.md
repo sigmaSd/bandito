@@ -17,4 +17,4 @@ MONITOR=${Monitor} TC=${pathToEltraficoTc}  deno run -A --unstable main.ts ${Net
 MONITOR=bandwhich TC=/dev/rust/cargo_target_dir/debug/tc  deno run -A --unstable main.ts wlan0
 ```
 
-Note that `MONITOR` is optional and wihtout it, bandito works but without showing live process network usage.
+Note that `MONITOR` is optional and without it, bandito works but without showing live process network usage.
