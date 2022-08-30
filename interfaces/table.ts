@@ -8,8 +8,8 @@ export interface AppConfigProps {
 
 export interface AppProps {
   name: string;
-  uploadLimit?: number;
-  downloadLimit?: number;
   downloadRate?: number;
   uploadRate?: number;
 }
+
+export type Unit  = "bps" | "Kbps" | "Mbps"

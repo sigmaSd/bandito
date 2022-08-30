@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
-import Table from "../islands/Counter.tsx";
+import Table from "../islands/App.tsx";
 
 export default function Home() {
   return (
