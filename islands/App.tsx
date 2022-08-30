@@ -3,7 +3,7 @@ import { h } from "preact";
 import { tw } from "@twind";
 import { Head } from "$fresh/runtime.ts";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
-import { AppConfigProps, AppProps, Unit } from "../interfaces/table.ts";
+import { AppProps, Unit } from "../interfaces/table.ts";
 
 export function Limit(
   { limit, setLimit }: {
@@ -180,7 +180,13 @@ function Table() {
     }, []);
   }
 
-  const body = apps ? apps.map((app) => <Row app={app} />) : {};
+  //NOTE: this sort is very important due to the dynamic way rows are created
+  //FIXME: this doesn't handle all cases
+  const body = apps
+    ? apps.sort((a, b) => a.name.localeCompare(b.name)).map((app) => (
+      <Row app={app} />
+    ))
+    : {};
 
   return (
     <div>
