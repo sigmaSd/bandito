@@ -1,10 +1,3 @@
-// enum Message {
-//   Stop,
-//   Interface,
-//   Global,
-//   Program,
-// }
-
 import { Unit } from "../interfaces/table.ts";
 
 export interface Program {
@@ -64,7 +57,6 @@ export class ElTrafico {
     const limitAction = `${startMsg} ${getLimit(program.downloadLimit)} ${
       getLimit(program.uploadLimit)
     } ${getLimit(program.downloadMinimum)} ${getLimit(program.uploadMinimum)}`;
-    console.log(limitAction);
     
     await this.#write(limitAction);
   }
@@ -76,7 +68,6 @@ export class ElTrafico {
   }
   async poll() {
     const data = await this.#read();
-    console.log(data);
 
     if (data == "Stop") {
       return { stop: true };

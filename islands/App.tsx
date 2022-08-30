@@ -11,7 +11,7 @@ export function Limit(
     setLimit: StateUpdater<{ value: number; unit: Unit }>;
   },
 ) {
-  const [selectedUnit, setSelectedUnit] = useState<Unit>("Kbps");
+  const [selectedUnit, setSelectedUnit] = useState<Unit>("kbps");
   const UnitChoice = () => {
     return (
       <select
@@ -21,8 +21,8 @@ export function Limit(
         class={tw`ml-1 min-w-fit border-black-400  border rounded-lg bg-white`}
       >
         <option value="bps">Bps</option>
-        <option value="Kbps">Kbps</option>
-        <option value="Mbps">Mbps</option>
+        <option value="kbps">Kbps</option>
+        <option value="mbps">Mbps</option>
       </select>
     );
   };
@@ -91,6 +91,7 @@ export function Row(
       <th>
         <i
           class={tw`font-serif font-semibold italic text-blue-600 cursor-pointer`}
+          style={{ color: active ? "green" : "" }}
         >
           {app.name}
         </i>
@@ -145,14 +146,9 @@ function Table() {
 
   useEffect(() => {
     fetch("/api/env?MONITOR").then((r) => r.text()).then((env) => {
-      console.log("here");
-      console.log(env);
-
       if (!env) {
         setMonitor("default");
       } else {
-        console.log("hello");
-
         setMonitor(env);
       }
     });
