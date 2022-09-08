@@ -1,6 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
 import { Head } from "$fresh/runtime.ts";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { AppProps, Unit } from "../interfaces/table.ts";
@@ -18,7 +15,7 @@ export function Limit(
         value={selectedUnit}
         onChange={(e) =>
           setSelectedUnit((e.target as HTMLSelectElement).value as Unit)}
-        class={tw`ml-1 min-w-fit border-black-400  border rounded-lg bg-white`}
+        class="ml-1 min-w-fit border-black-400  border rounded-lg bg-white"
       >
         <option value="bps">Bps</option>
         <option value="kbps">Kbps</option>
@@ -27,7 +24,7 @@ export function Limit(
     );
   };
   return (
-    <div class={tw`flex`}>
+    <div class="flex">
       <input
         onInput={(event) => {
           const newValue = parseFloat((event.target as HTMLInputElement).value);
@@ -36,7 +33,7 @@ export function Limit(
             unit: selectedUnit,
           });
         }}
-        class={tw`font-mono text-center w-20 font-semibold`}
+        class="font-mono text-center w-20 font-semibold"
         type="number"
         value={limit.value}
       />
@@ -90,7 +87,7 @@ export function Row(
     <tr>
       <th>
         <i
-          class={tw`font-serif font-semibold italic text-blue-600 cursor-pointer`}
+          class="font-serif font-semibold italic text-blue-600 cursor-pointer"
           style={{ color: active ? "green" : "" }}
         >
           {app.name}
@@ -100,7 +97,7 @@ export function Row(
         {app.downloadRate
           ? (
             <div>
-              {app.downloadRate} <i class={tw`font-medium`}>kbps</i>
+              {app.downloadRate} <i class="font-medium">kbps</i>
             </div>
           )
           : "__"}
@@ -109,7 +106,7 @@ export function Row(
         {app.uploadRate
           ? (
             <div>
-              {app.uploadRate} <i class={tw`font-medium`}>kbps</i>
+              {app.uploadRate} <i class="font-medium">kbps</i>
             </div>
           )
           : "__"}
@@ -133,7 +130,7 @@ export function Row(
           onChange={() => {
             setActive(!active);
           }}
-          class={tw`m-1`}
+          class="m-1"
         />
       </th>
     </tr>
@@ -211,7 +208,7 @@ export default function App() {
       <Head>
         <link rel="stylesheet" href="/table.css" />
       </Head>
-      <div class={tw`flex`}>
+      <div class="flex">
         <Table />
       </div>
     </div>
