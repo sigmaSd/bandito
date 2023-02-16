@@ -26,16 +26,16 @@ function findEltraficoTc() {
 }
 
 export class ElTrafico {
-  #tc: Deno.Child;
+  #tc: Deno.ChildProcess;
   #reader;
   #writer;
   constructor() {
-    this.#tc = Deno.spawnChild("pkexec", {
+    this.#tc = new Deno.Command("pkexec", {
       args: [findEltraficoTc()],
       stdout: "piped",
       stdin: "piped",
       stderr: "inherit",
-    });
+    }).spawn();
     this.#reader = this.#tc.stdout.getReader();
     this.#writer = this.#tc.stdin.getWriter();
   }

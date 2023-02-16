@@ -1,12 +1,15 @@
 import { TextDelimiterStream } from "https://deno.land/std@0.141.0/streams/delimiter.ts";
 
 export async function* bandwhich() {
-  const bandwhichStream = Deno.spawnChild("pkexec", {
+  const bandwhichStream = new Deno.Command("pkexec", {
     args: ["bandwhich", "-p", "--raw"],
     stdout: "piped",
-  }).stdout.pipeThrough(new TextDecoderStream()).pipeThrough(
-    new TextDelimiterStream("\n\n"),
-  );
+  }).spawn()
+    .stdout
+    .pipeThrough(new TextDecoderStream())
+    .pipeThrough(
+      new TextDelimiterStream("\n\n"),
+    );
 
   for await (const data of bandwhichStream) {
     yield parse(data);
