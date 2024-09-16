@@ -26,8 +26,8 @@ function parse(data: string) {
     const name = lineParts[2].slice(1, -1);
     const netRate = lineParts[5];
 
-    const uploadRate = parseFloat(netRate.split("/")[0]) / 1000;
-    const downloadRate = parseFloat(netRate.split("/")[1]) / 1000;
+    const uploadRate = parseFloat(netRate.split("/")[0]);
+    const downloadRate = parseFloat(netRate.split("/")[1]);
     return {
       name,
       downloadRate,

@@ -8,6 +8,7 @@ export interface AppConfigProps {
 
 export interface AppProps {
   name: string;
+  global?: boolean;
   downloadRate?: number;
   uploadRate?: number;
 }

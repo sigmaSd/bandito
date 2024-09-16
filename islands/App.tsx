@@ -1,6 +1,7 @@
 import { Head } from "$fresh/runtime.ts";
-import { StateUpdater, useEffect, useState } from "preact/hooks";
-import { AppProps, Unit } from "../interfaces/table.ts";
+import { type StateUpdater, useEffect, useState } from "preact/hooks";
+import type { AppProps, Unit } from "../interfaces/table.ts";
+import { format } from "jsr:@std/fmt/bytes";
 
 export function Limit(
   { limit, setLimit }: {
@@ -27,7 +28,9 @@ export function Limit(
     <div class="flex">
       <input
         onInput={(event) => {
-          const newValue = parseFloat((event.target as HTMLInputElement).value);
+          const newValue = Number.parseFloat(
+            (event.target as HTMLInputElement).value,
+          );
           setLimit({
             value: newValue,
             unit: selectedUnit,
@@ -57,6 +60,7 @@ export function Row(
     unit: "kbps" as Unit,
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (active) {
       fetch("/api/eltrafico", {
@@ -64,6 +68,7 @@ export function Row(
         body: JSON.stringify({
           method: "limit",
           app: {
+            global: app.global,
             name: app.name,
             downloadLimit,
             uploadLimit,
@@ -76,12 +81,13 @@ export function Row(
         body: JSON.stringify({
           method: "limit",
           app: {
+            global: app.global,
             name: app.name,
           },
         }),
       });
     }
-  }, [active]);
+  }, [active, downloadLimit, uploadLimit]);
 
   return (
     <tr>
@@ -97,7 +103,7 @@ export function Row(
         {app.downloadRate
           ? (
             <div>
-              {app.downloadRate} <i class="font-medium">kbps</i>
+              {format(app.downloadRate, { binary: true })}
             </div>
           )
           : "__"}
@@ -106,7 +112,7 @@ export function Row(
         {app.uploadRate
           ? (
             <div>
-              {app.uploadRate} <i class="font-medium">kbps</i>
+              {format(app.uploadRate, { binary: true })}
             </div>
           )
           : "__"}
@@ -164,7 +170,7 @@ function Table() {
         1000,
       );
     }, []);
-  } else if (monitor == "bandwhich") {
+  } else if (monitor === "bandwhich") {
     useEffect(() => {
       setInterval(
         () => fetch("/api/netmonitor").then((r) => r.json()).then(setApps),
@@ -175,9 +181,15 @@ function Table() {
 
   //NOTE: this sort is very important due to the dynamic way rows are created
   //FIXME: this doesn't handle all cases
+  const global = apps.splice(
+    apps.findIndex((app) => app.name === "[INTERNAL]GLOBAL"),
+    1,
+  ).map((app) => (
+    <Row key={app.name} app={{ ...app, name: "Global", global: true }} />
+  ))[0];
   const body = apps
     ? apps.sort((a, b) => a.name.localeCompare(b.name)).map((app) => (
-      <Row app={app} />
+      <Row key={app.name} app={app} />
     ))
     : {};
 
@@ -195,6 +207,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
+          {global}
           {body}
         </tbody>
       </table>

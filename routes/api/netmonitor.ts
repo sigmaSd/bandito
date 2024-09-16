@@ -18,7 +18,24 @@ export const handler: Handlers = {
         }
       }
       polledApps = [...newApps];
-      return new Response(JSON.stringify(polledApps));
+      const global = newApps.length === 0
+        ? {
+          name: "[INTERNAL]GLOBAL",
+          downloadRate: 0,
+          uploadRate: 0,
+        }
+        : newApps.reduce((app, acc) => {
+          return {
+            name: "[INTERNAL]GLOBAL",
+            downloadRate: acc.downloadRate + app.downloadRate,
+            uploadRate: acc.uploadRate + app.uploadRate,
+          };
+        });
+      // round to 2 decimals
+      global.downloadRate = Math.round(global.downloadRate * 100) / 100;
+      global.uploadRate = Math.round(global.uploadRate * 100) / 100;
+
+      return new Response(JSON.stringify([global, ...newApps]));
     } else {
       return new Response(JSON.stringify({}));
     }
