@@ -1,6 +1,6 @@
 import { Webview } from "jsr:@webview/webview@0.8.0";
 
-const worker = new Worker(new URL("./main.ts", import.meta.url), {
+new Worker(new URL("./main.ts", import.meta.url), {
   type: "module",
 });
 
@@ -9,18 +9,20 @@ webview.title = "Bandito";
 webview.navigate("http://localhost:8000");
 
 webview.run();
+// tell the backend to stop
 await fetch("http://localhost:8000/api/eltrafico", {
   method: "POST",
   body: JSON.stringify({
     method: "stop",
   }),
 });
+// wait for the app to stop
 while (true) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 1000);
 
   try {
-    const resp = await fetch("http://localhost:8000/api/eltrafico", {
+    await fetch("http://localhost:8000/api/eltrafico", {
       method: "POST",
       body: JSON.stringify({
         method: "poll",
