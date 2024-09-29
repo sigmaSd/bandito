@@ -11,13 +11,15 @@ if (!userInterface) {
 await eltrafico.interface(userInterface);
 
 const polledApps: { name: string }[] = [];
+let pollEnded = false;
 const pollForEver = async () => {
   while (true) {
     const data = await eltrafico.poll();
-    if (Object.hasOwn(data, "stop")) {
-      //FIXME
+    if (data.stop) {
+      pollEnded = true;
+      break;
     } else {
-      for (const app of data as { name: string }[]) {
+      for (const app of data.programs ?? []) {
         if (!polledApps.includes(app)) {
           polledApps.push(app);
         }
@@ -38,6 +40,9 @@ export const handler: Handlers = {
         await eltrafico.limit(message.app);
         break;
       case "poll":
+        if (pollEnded) {
+          return new Response(JSON.stringify({ stop: true }));
+        }
         return new Response(JSON.stringify(polledApps));
       case "stop":
         await eltrafico.stop();
