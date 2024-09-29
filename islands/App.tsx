@@ -166,7 +166,13 @@ function Table() {
             body: JSON.stringify({
               method: "poll",
             }),
-          }).then((r) => r.json()).then(setApps),
+          }).then((r) => r.json()).then((msg) => {
+            if (msg.stop) {
+              setApps([]);
+            } else {
+              setApps(msg.programs);
+            }
+          }),
         1000,
       );
     }, []);

@@ -73,9 +73,13 @@ export class ElTrafico {
       return { stop: true };
     }
 
-    return (data.split("\n").filter((l) => l).map((line) => {
-      return { name: line.split("ProgramEntry: ")[1] };
-    }));
+    return {
+      programs: data.split("\n").filter((l) => l)
+        .map((line) => {
+          return { name: line.split("ProgramEntry: ")[1] };
+        }),
+      stop: false,
+    };
   }
 }
 
