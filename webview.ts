@@ -29,7 +29,7 @@ while (true) {
     }).then((res) => res.json());
     clearTimeout(timeoutId);
   } catch (error) {
-    if (error.name === "AbortError") {
+    if (error instanceof Error && error.name === "AbortError") {
       // app probably stopped
       break;
     } else {
