@@ -1,0 +1,16 @@
+#!/bin/bash
+SELF=$(readlink -f "$0")
+HERE=${SELF%/*}
+export PATH="${HERE}/usr/bin/:${PATH}"
+export DENO_DIR="${HOME}/.cache/bandito-deno"
+mkdir -p "${DENO_DIR}"
+
+
+cp "${HERE}/usr/bin/eltrafico-tc" $DENO_DIR
+cp "${HERE}/usr/bin/bandwhich" $DENO_DIR
+export TC="${DENO_DIR}/eltrafico-tc"
+export MONITOR="bandwhich"
+export BANDWHICH="${DENO_DIR}/bandwhich"
+
+cd "${HERE}/bandito"
+exec "${HERE}/usr/bin/deno" run --allow-all webview.ts "$@"
