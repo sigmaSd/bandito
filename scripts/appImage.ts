@@ -27,12 +27,13 @@ async function downloadAppimagetool() {
 }
 
 if (import.meta.main) {
-  const deno = Deno.env.get("DENO") || $.whichSync("deno") || downloadDeno();
+  const deno = Deno.env.get("DENO") || $.whichSync("deno") ||
+    await downloadDeno();
   const eltraficoTc = Deno.env.get("ELTRAFICO_TC") ||
     $.whichSync("eltrafico-tc") ||
-    downloadEltraficoTc();
+    await downloadEltraficoTc();
   const bandwhich = Deno.env.get("BANDWICH") || $.whichSync("bandwhich") ||
-    downloadBandwich();
+    await downloadBandwich();
   const appimagetool = Deno.env.get("APPIMAGETOOL") ||
     $.whichSync("appimagetool") || await downloadAppimagetool();
 
