@@ -3,21 +3,19 @@ import { $ } from "jsr:@david/dax";
 async function downloadDeno() {
   await $`wget "https://github.com/denoland/deno/releases/download/v1.46.3/deno-x86_64-unknown-linux-gnu.zip"`;
   await $`unzip deno-x86_64-unknown-linux-gnu.zip`;
-  await $`ls -lah`;
-  return "./deno-x86_64-unknown-linux-gnu/deno";
+  return "./deno";
 }
 
 async function downloadEltraficoTc() {
   await $`wget "https://github.com/sigmaSd/Eltrafico/releases/download/2.3.6/eltrafico.tar"`;
   await $`tar -xvf eltrafico.tar`;
-  await $`ls -lah`;
-  return "./eltrafico/eltrafico-tc";
+  return "./target/release/eltrafico-tc";
 }
 
 async function downloadBandwich() {
   await $`wget "https://github.com/imsnif/bandwhich/releases/download/v0.23.0/bandwhich-v0.23.0-x86_64-unknown-linux-musl.tar.gz"`;
-  await $`ls -lah`;
-  return "./bandwhich-v0.23.0-x86_64-unknown-linux-musl/bandwhich";
+  await $`tar -xvf bandwhich-v0.23.0-x86_64-unknown-linux-musl.tar.gz`;
+  return "./bandwhich";
 }
 
 async function downloadAppimagetool() {
