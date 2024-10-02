@@ -32,23 +32,11 @@ jobs:
         id: commit_hash
         run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.commit_hash.outputs.hash }}
-          release_name: Release ${{ steps.commit_hash.outputs.hash }}
-          draft: false
-          prerelease: false
-
-      - name: Upload AppImage
-        uses: actions/upload-release-asset@v1
+          name: Release ${{ steps.commit_hash.outputs.hash }}
+          files: ./Bandito-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Bandito-x86_64.AppImage
-          asset_name: Bandito-x86_64.AppImage
-          asset_content_type: application/x-executable
