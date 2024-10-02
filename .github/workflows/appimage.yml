@@ -21,10 +21,10 @@ jobs:
         with:
           deno-version: canary
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget fuse libfuse2
+      # - name: Install dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y wget fuse libfuse2
 
       - name: Build AppImage
         run: deno run --allow-all scripts/appImage.ts
