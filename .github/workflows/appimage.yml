@@ -29,14 +29,18 @@ jobs:
       - name: Build AppImage
         run: deno run --allow-all scripts/appImage.ts
 
+      - name: Get commit hash
+        id: commit_hash
+        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: ${{ steps.commit_hash.outputs.hash }}
+          release_name: Release ${{ steps.commit_hash.outputs.hash }}
           draft: false
           prerelease: false
 
