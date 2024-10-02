@@ -20,7 +20,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v2.x
+          deno-version: canary
 
       - name: Verify formatting
         run: deno fmt --check
@@ -41,7 +41,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.x
+          deno-version: canary
 
       - name: Install dependencies
         run: |
