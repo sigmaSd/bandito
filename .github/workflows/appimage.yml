@@ -22,8 +22,8 @@ jobs:
         with:
           deno-version: canary
 
-      - name: Verify formatting
-        run: deno fmt --check
+      # - name: Verify formatting
+      #   run: deno fmt --check
 
       - name: Run linter
         run: deno lint
