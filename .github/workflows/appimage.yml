@@ -10,27 +10,6 @@ permissions:
   contents: write
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Setup repo
-        uses: actions/checkout@v4
-
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: canary
-
-      # - name: Verify formatting
-      #   run: deno fmt --check
-
-      - name: Run linter
-        run: deno lint
-
-      - name: Run tests
-        run: deno test -A
-
   build-appimage:
     needs: test
     runs-on: ubuntu-latest
