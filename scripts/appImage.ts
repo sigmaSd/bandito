@@ -9,7 +9,7 @@ async function downloadDeno() {
 async function downloadEltraficoTc() {
   await $`wget "https://github.com/sigmaSd/Eltrafico/releases/download/2.3.6/eltrafico.tar"`;
   await $`tar -xvf eltrafico.tar`;
-  return "./target/release/eltrafico-tc";
+  return "./target/release/eltrafico_tc";
 }
 
 async function downloadBandwich() {
