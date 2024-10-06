@@ -16,6 +16,7 @@ export MONITOR="bandwhich"
 export BANDWHICH="${BANDITO_CACHE_DIR}/bandwhich"
 
 # Get the list of network interfaces using `ip addr show`
+export ZENITY_DATA_DIR="${HERE}/usr/bin/zenity-share"
 ZENITY="${HERE}/usr/bin/zenity"
 interfaces=$(ip -o link show | awk -F': ' '{print $2}')
 

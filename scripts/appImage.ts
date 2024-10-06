@@ -61,9 +61,16 @@ if (import.meta.main) {
   await $`cp ${eltraficoTc} /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`cp ${bandwhich} /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;
   await $`cp ${zenity} /tmp/appimage/Bandito.AppDir/usr/bin/zenity`;
+  // if we're in github ci, zenity needs some runtime dependencies
+  // copy it from /usr/share/zenity
+  if (Deno.env.get("GITHUB_ACTIONS")) {
+    await $`cp -r /usr/share/zenity /tmp/appimage/Bandito.AppDir/bandito/vendor-x86-64/zenity-share`;
+  }
+
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/deno`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;
+  await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/zenity`;
 
   await $`cp ./scripts/assets/bandito.png /tmp/appimage/Bandito.AppDir/usr/share/icons/hicolor/256x256/apps/bandito.png`;
   await $`ln -s /tmp/appimage/Bandito.AppDir/usr/share/icons/hicolor/256x256/apps/bandito.png /tmp/appimage/Bandito.AppDir/bandito.png`;
