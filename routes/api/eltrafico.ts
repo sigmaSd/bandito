@@ -3,7 +3,7 @@ import { ElTrafico } from "../../eltrafico/eltrafico.ts";
 
 // start eltrafico when the server starts
 const eltrafico = new ElTrafico();
-const userInterface = Deno.args[0];
+export const userInterface = Deno.args[0];
 if (!userInterface) {
   console.error("Please specify an interface, example `bandit wlan0`");
   Deno.exit(1);

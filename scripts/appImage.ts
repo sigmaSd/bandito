@@ -34,6 +34,11 @@ if (import.meta.main) {
     await downloadBandwich();
   const appimagetool = Deno.env.get("APPIMAGETOOL") ||
     $.whichSync("appimagetool") || await downloadAppimagetool();
+  const zenity = Deno.env.get("ZENITY") || $.whichSync("zenity");
+  if (!zenity) {
+    console.error("zenity not found, please install it");
+    Deno.exit(1);
+  }
 
   await $`rm -rf /tmp/appimage`;
   await $`mkdir /tmp/appimage`;
@@ -55,6 +60,7 @@ if (import.meta.main) {
   await $`cp ${deno} /tmp/appimage/Bandito.AppDir/usr/bin/deno`;
   await $`cp ${eltraficoTc} /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`cp ${bandwhich} /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;
+  await $`cp ${zenity} /tmp/appimage/Bandito.AppDir/usr/bin/zenity`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/deno`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;

@@ -1,8 +1,9 @@
 import { Handlers } from "$fresh/server.ts";
 import { bandwhich } from "../../netmonitor/bandwhich.ts";
+import { userInterface } from "./eltrafico.ts";
 
 // start net monitoring when the server starts
-const netState = bandwhich();
+const netState = bandwhich(userInterface);
 let polledApps: { name: string; downloadRate: number; uploadRate: number }[] =
   [];
 

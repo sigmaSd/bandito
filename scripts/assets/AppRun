@@ -7,11 +7,29 @@ export DENO_DIR="${HERE}/bandito/vendor-x86-64"
 export BANDITO_CACHE_DIR="${HOME}/.cache/bandito-deno"
 mkdir -p "${BANDITO_CACHE_DIR}"
 
+# Copy otherwise I get this error:
+# Error accessing /tmp/.mount_BanditJAN1UN/usr/bin/bandwhich: Permission denied
 cp "${HERE}/usr/bin/eltrafico-tc" $BANDITO_CACHE_DIR
 cp "${HERE}/usr/bin/bandwhich" $BANDITO_CACHE_DIR
 export TC="${BANDITO_CACHE_DIR}/eltrafico-tc"
 export MONITOR="bandwhich"
 export BANDWHICH="${BANDITO_CACHE_DIR}/bandwhich"
 
+# Get the list of network interfaces using `ip addr show`
+ZENITY="${HERE}/usr/bin/zenity"
+interfaces=$(ip -o link show | awk -F': ' '{print $2}')
+
+# Create a list of options for Zenity using `--list` dialog
+selected_interface=$($ZENITY --list --title="Select Network Interface" \
+                            --text="Choose a network interface:" \
+                            --column="Interfaces" $interfaces)
+
+# Check if the user made a selection
+if [ $? -ne 0 ]; then
+    $ZENITY --error --text="No interface selected!"
+    exit 1
+fi
+
+# Run the app
 cd "${HERE}/bandito"
-exec "${HERE}/usr/bin/deno" run --allow-all --cached-only webview.ts "$@"
+exec "${HERE}/usr/bin/deno" run --allow-all --cached-only webview.ts $selected_interface "$@"

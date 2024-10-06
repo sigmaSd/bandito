@@ -1,9 +1,9 @@
 import { TextDelimiterStream } from "https://deno.land/std@0.141.0/streams/delimiter.ts";
 
 const bandWhichExe = Deno.env.get("BANDWHICH") || "bandwhich";
-export async function* bandwhich() {
+export async function* bandwhich(interfaceName: string) {
   const bandwhichStream = new Deno.Command("pkexec", {
-    args: [bandWhichExe, "-p", "--raw"],
+    args: [bandWhichExe, "-p", "--raw", "-i", interfaceName],
     stdout: "piped",
   }).spawn()
     .stdout
