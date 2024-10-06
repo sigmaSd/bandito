@@ -44,6 +44,14 @@ if (import.meta.main) {
   await $`mkdir -p /tmp/appimage/Bandito.AppDir`;
   await $`cp -r . /tmp/appimage/Bandito.AppDir/bandito`;
 
+  const vendor = Deno.env.get("VENDOR");
+  if (vendor) {
+    await $`cp -r ${vendor} /tmp/appimage/Bandito.AppDir/bandito/vendor-x86-64`;
+  } else {
+    await $`git clone https://github.com/sigmaSd/bandito-vendor`;
+    await $`cp -r ./bandito-vendor/vendor-x86-64 /tmp/appimage/Bandito.AppDir/bandito/vendor-x86-64`;
+  }
+
   await $`cp ${deno} /tmp/appimage/Bandito.AppDir/usr/bin/deno`;
   await $`cp ${eltraficoTc} /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`cp ${bandwhich} /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;
