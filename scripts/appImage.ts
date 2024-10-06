@@ -24,6 +24,15 @@ async function downloadAppimagetool() {
   return "./appimagetool-x86_64.AppImage";
 }
 
+async function downloadZenity() {
+  await $`mkdir zenity`;
+  $.cd("zenity");
+  await $`wget "https://kojipkgs.fedoraproject.org//packages/zenity/4.0.2/1.fc39/x86_64/zenity-4.0.2-1.fc39.x86_64.rpm"`;
+  await $`rpm2cpio zenity-4.0.2-1.fc39.x86_64.rpm | cpio -idmv`;
+  $.cd("..");
+  return "./zenity/usr/bin/zenity";
+}
+
 if (import.meta.main) {
   const deno = Deno.env.get("DENO") || $.whichSync("deno") ||
     await downloadDeno();
@@ -34,11 +43,7 @@ if (import.meta.main) {
     await downloadBandwich();
   const appimagetool = Deno.env.get("APPIMAGETOOL") ||
     $.whichSync("appimagetool") || await downloadAppimagetool();
-  const zenity = Deno.env.get("ZENITY") || $.whichSync("zenity");
-  if (!zenity) {
-    console.error("zenity not found, please install it");
-    Deno.exit(1);
-  }
+  const zenity = Deno.env.get("ZENITY") || await downloadZenity();
 
   await $`rm -rf /tmp/appimage`;
   await $`mkdir /tmp/appimage`;
@@ -61,11 +66,6 @@ if (import.meta.main) {
   await $`cp ${eltraficoTc} /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
   await $`cp ${bandwhich} /tmp/appimage/Bandito.AppDir/usr/bin/bandwhich`;
   await $`cp ${zenity} /tmp/appimage/Bandito.AppDir/usr/bin/zenity`;
-  // if we're in github ci, zenity needs some runtime dependencies
-  // copy it from /usr/share/zenity
-  if (Deno.env.get("GITHUB_ACTIONS")) {
-    await $`cp -r /usr/share/zenity /tmp/appimage/Bandito.AppDir/bandito/vendor-x86-64/zenity-share`;
-  }
 
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/deno`;
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/eltrafico-tc`;
