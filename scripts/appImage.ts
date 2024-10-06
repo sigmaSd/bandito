@@ -25,12 +25,14 @@ async function downloadAppimagetool() {
 }
 
 async function downloadZenity() {
-  await $`mkdir zenity`;
-  $.cd("zenity");
+  await $`mkdir zenity-dir`;
+  $.cd("zenity-dir");
   await $`wget "https://kojipkgs.fedoraproject.org//packages/zenity/4.0.2/1.fc39/x86_64/zenity-4.0.2-1.fc39.x86_64.rpm"`;
   await $`rpm2cpio zenity-4.0.2-1.fc39.x86_64.rpm | cpio -idmv`;
   $.cd("..");
-  return "./zenity/usr/bin/zenity";
+  await $`cp zenity-dir/usr/bin/zenity ./`;
+  await $`rm -rf zenity-dir`;
+  return "./zenity";
 }
 
 if (import.meta.main) {
