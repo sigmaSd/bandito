@@ -23,7 +23,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get install -y wget fuse libfuse2 zenity rpm2cpio cpio
+          sudo apt-get install -y wget
+          # Install AppImage dependencies
+          sudo apt-get install fuse libfuse2
+          # Install zenity dependencies
+          sudo apt-get install rpm2cpio cpio
 
       - name: Build AppImage
         run: deno run --allow-all scripts/appImage.ts
