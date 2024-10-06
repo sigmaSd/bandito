@@ -8,7 +8,25 @@ const webview = new Webview();
 webview.title = "Bandito";
 webview.navigate("http://localhost:8000");
 
+// wait for the backend to start
+while (true) {
+  try {
+    const resp = await fetch("http://localhost:8000/api/eltrafico", {
+      method: "POST",
+      body: JSON.stringify({
+        method: "ping",
+      }),
+    }).then((res) => res.text());
+    if (resp === "pong") {
+      break;
+    }
+  } catch {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+}
+
 webview.run();
+
 // tell the backend to stop
 await fetch("http://localhost:8000/api/eltrafico", {
   method: "POST",

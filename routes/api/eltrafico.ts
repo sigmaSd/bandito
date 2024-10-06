@@ -33,6 +33,8 @@ export const handler: Handlers = {
   async POST(req) {
     const message = await req.json();
     switch (message.method) {
+      case "ping":
+        return new Response("pong");
       case "interface":
         await eltrafico.interface(message.interface);
         break;
