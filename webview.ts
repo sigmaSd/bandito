@@ -4,14 +4,16 @@ new Worker(new URL("./main.ts", import.meta.url), {
   type: "module",
 });
 
+const port = Number.parseInt(Deno.env.get("PORT") || "3425");
+
 const webview = new Webview();
 webview.title = "Bandito";
-webview.navigate("http://localhost:8000");
+webview.navigate(`http://localhost:${port}`);
 
 // wait for the backend to start
 while (true) {
   try {
-    const resp = await fetch("http://localhost:8000/api/eltrafico", {
+    const resp = await fetch(`http://localhost:${port}/api/eltrafico`, {
       method: "POST",
       body: JSON.stringify({
         method: "ping",
@@ -28,7 +30,7 @@ while (true) {
 webview.run();
 
 // tell the backend to stop
-await fetch("http://localhost:8000/api/eltrafico", {
+await fetch(`http://localhost:${port}/api/eltrafico`, {
   method: "POST",
   body: JSON.stringify({
     method: "stop",
@@ -40,7 +42,7 @@ while (true) {
   const timeoutId = setTimeout(() => controller.abort(), 1000);
 
   try {
-    await fetch("http://localhost:8000/api/eltrafico", {
+    await fetch(`http://localhost:${port}/api/eltrafico`, {
       method: "POST",
       body: JSON.stringify({
         method: "poll",
