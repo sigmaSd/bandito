@@ -9,7 +9,7 @@ The build script is located at `scripts/appImage.ts`
 
 ### Demo
 
-[Watch Demo Video](https://github.com/user-attachments/assets/3f738bcf-5787-4295-b3b8-3ceb0caf753b)
+[Watch Demo Video](https://github.com/user-attachments/assets/bc040724-97b7-4372-8a00-702bb86778e6)
 
 ### Usage
 
