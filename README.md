@@ -4,6 +4,10 @@ Fresh frontend for [eltrafico](https://github.com/sigmaSd/Eltrafico)
 
 ![image](https://user-images.githubusercontent.com/22427111/187526633-de317357-ce9f-4314-b721-27fa62e0e9ce.png)
 
+### Demo
+
+[demo.webm](https://github.com/user-attachments/assets/3f738bcf-5787-4295-b3b8-3ceb0caf753b)
+
 ### Usage
 
 ```
