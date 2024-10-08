@@ -13,8 +13,8 @@ async function downloadEltraficoTc() {
 }
 
 async function downloadBandwich() {
-  await $`wget "https://github.com/imsnif/bandwhich/releases/download/v0.23.0/bandwhich-v0.23.0-x86_64-unknown-linux-musl.tar.gz"`;
-  await $`tar -xvf bandwhich-v0.23.0-x86_64-unknown-linux-musl.tar.gz`;
+  await $`wget "https://github.com/imsnif/bandwhich/releases/download/v0.23.1/bandwhich-v0.23.1-x86_64-unknown-linux-musl.tar.gz"`;
+  await $`tar -xvf bandwhich-v0.23.1-x86_64-unknown-linux-musl.tar.gz`;
   return "./bandwhich";
 }
 
@@ -75,8 +75,10 @@ if (import.meta.main) {
   await $`chmod +x /tmp/appimage/Bandito.AppDir/usr/bin/zenity`;
 
   await $`cp ./scripts/assets/bandito.png /tmp/appimage/Bandito.AppDir/usr/share/icons/hicolor/256x256/apps/bandito.png`;
-  await $`ln -s /tmp/appimage/Bandito.AppDir/usr/share/icons/hicolor/256x256/apps/bandito.png /tmp/appimage/Bandito.AppDir/bandito.png`;
+  await $`cp ./scripts/assets/bandito.png /tmp/appimage/Bandito.AppDir/bandito.png`;
+  await $`cp ./scripts/assets/bandito.png /tmp/appimage/Bandito.AppDir/.DirIcon`;
 
+  await $`cp ./scripts/assets/bandito.desktop /tmp/appimage/Bandito.AppDir/usr/share/applications/bandito.desktop`;
   await $`cp ./scripts/assets/bandito.desktop /tmp/appimage/Bandito.AppDir/bandito.desktop`;
 
   await $`cp ./scripts/assets/AppRun /tmp/appimage/Bandito.AppDir/AppRun`;
