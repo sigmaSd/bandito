@@ -1,7 +1,7 @@
 import { Head } from "$fresh/runtime.ts";
 import { type StateUpdater, useEffect, useState } from "preact/hooks";
 import type { AppProps, Unit } from "../interfaces/table.ts";
-import { format } from "jsr:@std/fmt/bytes";
+import { format } from "@std/fmt/bytes";
 
 export function Limit(
   { limit, setLimit }: {
@@ -157,8 +157,8 @@ function Table() {
     });
   }, []);
 
-  if (monitor === "default") {
-    useEffect(() => {
+  useEffect(() => {
+    if (monitor === "default") {
       setInterval(
         () =>
           fetch("/api/eltrafico", {
@@ -175,15 +175,13 @@ function Table() {
           }),
         1000,
       );
-    }, []);
-  } else if (monitor === "bandwhich") {
-    useEffect(() => {
+    } else if (monitor === "bandwhich") {
       setInterval(
         () => fetch("/api/netmonitor").then((r) => r.json()).then(setApps),
         1000,
       );
-    }, []);
-  }
+    }
+  }, []);
 
   //NOTE: this sort is very important due to the dynamic way rows are created
   //FIXME: this doesn't handle all cases

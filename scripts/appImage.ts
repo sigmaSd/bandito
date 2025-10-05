@@ -1,4 +1,4 @@
-import { $ } from "jsr:@david/dax";
+import { $ } from "jsr:@david/dax@0.43.2";
 
 async function downloadDeno() {
   await $`wget "https://github.com/denoland/deno/releases/download/v1.46.3/deno-x86_64-unknown-linux-gnu.zip"`;
@@ -26,10 +26,10 @@ async function downloadAppimagetool() {
 
 async function downloadZenity() {
   await $`mkdir zenity-dir`;
-  $.cd("zenity-dir");
+  Deno.chdir("zenity-dir");
   await $`wget "https://kojipkgs.fedoraproject.org//packages/zenity/4.0.2/1.fc39/x86_64/zenity-4.0.2-1.fc39.x86_64.rpm"`;
   await $`rpm2cpio zenity-4.0.2-1.fc39.x86_64.rpm | cpio -idmv`;
-  $.cd("..");
+  Deno.chdir("..");
   await $`cp zenity-dir/usr/bin/zenity ./`;
   await $`rm -rf zenity-dir`;
   return "./zenity";
