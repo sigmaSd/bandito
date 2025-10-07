@@ -41,3 +41,6 @@ These dependencies should be integrated into the AppImage in future updates. For
 
 - libwebgtkkit-4.0
 - (Additional dependencies may be required)
+
+## FAQ
+- nvidia drivers + waylmand might not work with webview, you can try `WEBKIT_DISABLE_DMABUF_RENDERER=1 ./appimage` to workaround it https://github.com/sigmaSd/bandito/issues/3
