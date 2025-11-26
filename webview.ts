@@ -1,4 +1,4 @@
-import { Webview } from "jsr:@webview/webview@0.8.0";
+import { Webview } from "jsr:@webview/webview@0.9.0";
 
 new Worker(new URL("./main.ts", import.meta.url), {
   type: "module",
