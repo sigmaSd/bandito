@@ -181,7 +181,7 @@ function Table() {
         1000,
       );
     }
-  }, []);
+  }, [monitor]);
 
   //NOTE: this sort is very important due to the dynamic way rows are created
   //FIXME: this doesn't handle all cases
