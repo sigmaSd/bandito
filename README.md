@@ -50,4 +50,7 @@ now, they are required:
 - (Additional dependencies may be required)
 
 ## FAQ
-- nvidia drivers + waylmand might not work with webview, you can try `__NV_DISABLE_EXPLICIT_SYNC=1 ./appimage` to workaround it https://github.com/sigmaSd/bandito/issues/3
+
+- nvidia drivers + waylmand might not work with webview, you can try
+  `__NV_DISABLE_EXPLICIT_SYNC=1 ./appimage` to workaround it
+  https://github.com/sigmaSd/bandito/issues/3
