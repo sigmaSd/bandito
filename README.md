@@ -1,5 +1,7 @@
 # Bandito
 
+NEWS: a new gtk4 frontend is here https://github.com/sigmaSd/bandito-gtk
+
 A frontend for [eltrafico](https://github.com/sigmaSd/Eltrafico)
 
 An AppImage is automatically built with each commit via GitHub CI. The build
